@@ -25,6 +25,10 @@ class NotificationStore {
     this.notifications = [];
     await updateNotifications({ notificationUpdateAllDto: { ids, readAt: new Date().toISOString() } });
   };
+
+  clear = () => {
+    this.notifications = [];
+  };
 }
 
 export const notificationManager = new NotificationStore();
