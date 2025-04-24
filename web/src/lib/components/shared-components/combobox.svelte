@@ -258,7 +258,7 @@
 >
   <div>
     {#if isActive}
-      <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+      <div class="absolute inset-y-0 start-0 flex items-center ps-3">
         <div class="dark:text-immich-dark-fg/75">
           <Icon path={mdiMagnify} ariaHidden={true} />
         </div>
@@ -273,11 +273,11 @@
       aria-expanded={isOpen}
       autocomplete="off"
       bind:this={input}
-      class:!pl-8={isActive}
+      class:!ps-8={isActive}
       class:!rounded-b-none={isOpen && dropdownDirection === 'bottom'}
       class:!rounded-t-none={isOpen && dropdownDirection === 'top'}
       class:cursor-pointer={!isActive}
-      class="immich-form-input text-sm text-left w-full !pr-12 transition-all"
+      class="immich-form-input text-sm text-left w-full !pe-12 transition-all"
       id={inputId}
       onfocus={activate}
       oninput={onInput}
@@ -325,8 +325,8 @@
     />
 
     <div
-      class="absolute right-0 top-0 h-full flex px-4 justify-center items-center content-between"
-      class:pr-2={selectedOption}
+      class="absolute end-0 top-0 h-full flex px-4 justify-center items-center content-between"
+      class:pe-2={selectedOption}
       class:pointer-events-none={!selectedOption}
     >
       {#if selectedOption}

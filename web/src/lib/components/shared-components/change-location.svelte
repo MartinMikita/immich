@@ -147,7 +147,7 @@
                   : ''}"
                 onclick={() => handleUseSuggested(place.latitude, place.longitude)}
               >
-                <p class="ml-4 text-sm text-gray-700 dark:text-gray-100 truncate">
+                <p class="ms-4 text-sm text-gray-700 dark:text-gray-100 truncate">
                   {getLocation(place.name, place.admin1name, place.admin2name)}
                 </p>
               </button>

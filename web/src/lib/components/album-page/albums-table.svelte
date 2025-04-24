@@ -48,7 +48,7 @@
         class="block w-full overflow-y-auto rounded-md border dark:border-immich-dark-gray dark:text-immich-dark-fg"
       >
         <tr
-          class="flex w-full place-items-center p-2 md:pl-5 md:pr-5 md:pt-3 md:pb-3"
+          class="flex w-full place-items-center p-2 md:ps-5 md:pe-5 md:pt-3 md:pb-3"
           onclick={() => toggleAlbumGroupCollapsing(albumGroup.id)}
           aria-expanded={!isCollapsed}
         >
@@ -59,7 +59,7 @@
               class="inline-block -mt-2 transition-all duration-[250ms] {iconRotation}"
             />
             <span class="font-bold text-2xl">{albumGroup.name}</span>
-            <span class="ml-1.5">
+            <span class="ms-1.5">
               ({$t('albums_count', { values: { count: albumGroup.albums.length } })})
             </span>
           </td>

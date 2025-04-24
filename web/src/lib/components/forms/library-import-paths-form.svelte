@@ -183,7 +183,7 @@
               : 'bg-immich-bg dark:bg-immich-dark-gray/50'
           }`}
         >
-          <td class="w-1/8 text-ellipsis pl-8 text-sm">
+          <td class="w-1/8 text-ellipsis ps-8 text-sm">
             {#if validatedPath.isValid}
               <Icon
                 path={mdiCheckCircleOutline}

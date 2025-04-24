@@ -337,11 +337,11 @@
                   <td onclick={() => copyToClipboard(extra.filename)}>
                     <CircleIconButton title={$t('copy_file_path')} icon={mdiContentCopy} size="18" onclick={() => {}} />
                   </td>
-                  <td class="w-full text-md text-ellipsis flex justify-between pr-5">
-                    <span class="text-ellipsis grow truncate font-mono text-sm pr-5" title={extra.filename}
+                  <td class="w-full text-md text-ellipsis flex justify-between pe-5">
+                    <span class="text-ellipsis grow truncate font-mono text-sm pe-5" title={extra.filename}
                       >{extra.filename}</span
                     >
-                    <span class="text-sm font-mono dark:text-immich-dark-primary text-immich-primary pr-5">
+                    <span class="text-sm font-mono dark:text-immich-dark-primary text-immich-primary pes-5">
                       {#if extra.checksum}
                         [sha1:{extra.checksum}]
                       {/if}

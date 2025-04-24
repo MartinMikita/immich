@@ -65,7 +65,7 @@
     <div class="flex justify-between">
       {text}
       {#if shortcutLabel}
-        <span class="text-gray-500 pl-4">
+        <span class="text-gray-500 ps-4">
           {shortcutLabel}
         </span>
       {/if}

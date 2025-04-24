@@ -110,7 +110,7 @@
   </button>
 
   {#if isOpen}
-    <ul transition:slide={{ duration: 150 }} class="mb-2 ml-4">
+    <ul transition:slide={{ duration: 150 }} class="mb-2 ms-4">
       {@render children?.()}
     </ul>
   {/if}

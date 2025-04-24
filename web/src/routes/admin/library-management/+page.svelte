@@ -369,7 +369,7 @@
               {/if}
               {#if editScanSettings === index}
                 <!-- svelte-ignore node_invalid_placement_ssr -->
-                <div transition:slide={{ duration: 250 }} class="mb-4 ml-4 mr-4">
+                <div transition:slide={{ duration: 250 }} class="mb-4 ms-4 me-4">
                   <LibraryScanSettingsForm
                     {library}
                     onSubmit={handleUpdate}

@@ -79,7 +79,7 @@
             <span class="text-[#DCDADA] dark:text-[#525252]">{zeros(statsUsage)}</span><span
               class="text-immich-primary dark:text-immich-dark-primary">{statsUsage}</span
             >
-            <span class="my-auto ml-2 text-center text-base font-light text-gray-400">{statsUsageUnit}</span>
+            <span class="my-auto ms-2 text-center text-base font-light text-gray-400">{statsUsageUnit}</span>
           </div>
         </div>
       </div>
