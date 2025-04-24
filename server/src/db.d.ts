@@ -234,6 +234,14 @@ export interface GeodataPlaces {
   name: string;
 }
 
+export interface GraphileWorkerJobs {
+  id: Generated<string>;
+  task_identifier: string;
+  locked_at: Timestamp | null;
+  locked_by: string | null;
+  run_at: Timestamp | null;
+}
+
 export interface Libraries {
   createdAt: Generated<Timestamp>;
   deletedAt: Timestamp | null;
@@ -459,6 +467,7 @@ export interface DB {
   exif: Exif;
   face_search: FaceSearch;
   geodata_places: GeodataPlaces;
+  'graphile_worker.jobs': GraphileWorkerJobs;
   libraries: Libraries;
   memories: Memories;
   memories_assets_assets: MemoriesAssetsAssets;

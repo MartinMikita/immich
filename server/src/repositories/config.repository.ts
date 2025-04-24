@@ -1,10 +1,7 @@
-import { RegisterQueueOptions } from '@nestjs/bullmq';
 import { Inject, Injectable, Optional } from '@nestjs/common';
-import { QueueOptions } from 'bullmq';
 import { plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
 import { Request, Response } from 'express';
-import { RedisOptions } from 'ioredis';
 import { CLS_ID, ClsModuleOptions } from 'nestjs-cls';
 import { OpenTelemetryModuleOptions } from 'nestjs-otel/lib/interfaces';
 import { join, resolve } from 'node:path';
@@ -12,15 +9,7 @@ import { parse } from 'pg-connection-string';
 import { citiesFile, excludePaths, IWorker } from 'src/constants';
 import { Telemetry } from 'src/decorators';
 import { EnvDto } from 'src/dtos/env.dto';
-import {
-  DatabaseExtension,
-  ImmichEnvironment,
-  ImmichHeader,
-  ImmichTelemetry,
-  ImmichWorker,
-  LogLevel,
-  QueueName,
-} from 'src/enum';
+import { DatabaseExtension, ImmichEnvironment, ImmichHeader, ImmichTelemetry, ImmichWorker, LogLevel } from 'src/enum';
 import { DatabaseConnectionParams, VectorExtension } from 'src/types';
 import { isValidSsl, PostgresConnectionConfig } from 'src/utils/database';
 import { setDifference } from 'src/utils/set';
@@ -47,11 +36,6 @@ export interface EnvData {
     thirdPartyBugFeatureUrl?: string;
     thirdPartyDocumentationUrl?: string;
     thirdPartySupportUrl?: string;
-  };
-
-  bull: {
-    config: QueueOptions;
-    queues: RegisterQueueOptions[];
   };
 
   cls: {
@@ -89,8 +73,6 @@ export interface EnvData {
       indexHtml: string;
     };
   };
-
-  redis: RedisOptions;
 
   telemetry: {
     apiPort: number;
@@ -160,24 +142,6 @@ const getEnv = (): EnvData => {
 
   const databaseUrl = dto.DB_URL;
 
-  let redisConfig = {
-    host: dto.REDIS_HOSTNAME || 'redis',
-    port: dto.REDIS_PORT || 6379,
-    db: dto.REDIS_DBINDEX || 0,
-    username: dto.REDIS_USERNAME || undefined,
-    password: dto.REDIS_PASSWORD || undefined,
-    path: dto.REDIS_SOCKET || undefined,
-  };
-
-  const redisUrl = dto.REDIS_URL;
-  if (redisUrl && redisUrl.startsWith('ioredis://')) {
-    try {
-      redisConfig = JSON.parse(Buffer.from(redisUrl.slice(10), 'base64').toString());
-    } catch (error) {
-      throw new Error(`Failed to decode redis options: ${error}`);
-    }
-  }
-
   const includedTelemetries =
     dto.IMMICH_TELEMETRY_INCLUDE === 'all'
       ? new Set(Object.values(ImmichTelemetry))
@@ -202,7 +166,7 @@ const getEnv = (): EnvData => {
 
   let parsedOptions: PostgresConnectionConfig = parts;
   if (dto.DB_URL) {
-    const parsed = parse(dto.DB_URL);
+    const parsed = parse(dto.DB_URL, { useLibpqCompat: true });
     if (!isValidSsl(parsed.ssl)) {
       throw new Error(`Invalid ssl option: ${parsed.ssl}`);
     }
@@ -237,19 +201,6 @@ const getEnv = (): EnvData => {
       thirdPartyBugFeatureUrl: dto.IMMICH_THIRD_PARTY_BUG_FEATURE_URL,
       thirdPartyDocumentationUrl: dto.IMMICH_THIRD_PARTY_DOCUMENTATION_URL,
       thirdPartySupportUrl: dto.IMMICH_THIRD_PARTY_SUPPORT_URL,
-    },
-
-    bull: {
-      config: {
-        prefix: 'immich_bull',
-        connection: { ...redisConfig },
-        defaultJobOptions: {
-          attempts: 3,
-          removeOnComplete: true,
-          removeOnFail: false,
-        },
-      },
-      queues: Object.values(QueueName).map((name) => ({ name })),
     },
 
     cls: {
@@ -303,8 +254,6 @@ const getEnv = (): EnvData => {
         },
       },
     },
-
-    redis: redisConfig,
 
     resourcePaths: {
       lockFile: join(buildFolder, 'build-lock.json'),

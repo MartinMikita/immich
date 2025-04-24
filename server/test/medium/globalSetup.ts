@@ -37,7 +37,7 @@ const globalSetup = async () => {
 
   const postgresPort = postgresContainer.getMappedPort(5432);
   const postgresUrl = `postgres://postgres:postgres@localhost:${postgresPort}/immich`;
-  const parsed = parse(postgresUrl);
+  const parsed = parse(postgresUrl, { useLibpqCompat: true });
 
   process.env.IMMICH_TEST_POSTGRES_URL = postgresUrl;
 

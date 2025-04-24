@@ -26,6 +26,7 @@ export type PostgresConnectionConfig = {
   host?: string;
   password?: string;
   user?: string;
+  username?: string;
   port?: number;
   database?: string;
   max?: number;
